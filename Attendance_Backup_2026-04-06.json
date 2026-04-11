@@ -1,0 +1,486 @@
+{
+  "settings": {
+    "instituteName": "Marutinandan Education Hub",
+    "teacherName": "Akash Sir",
+    "batchTime": "Full Day"
+  },
+  "students": [
+    {
+      "name": "Sangnani Dhruvi Brijeshbhai",
+      "roll": "8238660411",
+      "className": "Mota Varachha",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Savaliya Lax Jaysukhbhai",
+      "roll": "9510926421",
+      "className": "Mota Varachha",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Bagda Aryan Mukeshbhai",
+      "roll": "9016723366",
+      "className": "Mota Varachha",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Talaviya Gracy Mehulbhai",
+      "roll": "9979376335",
+      "className": "Mission Road",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Bukhani Jenee Ghnshayambhai",
+      "roll": "7600756775",
+      "className": "Mission Road",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Ghelani Mantra Ankitbhai",
+      "roll": "7046499188",
+      "className": "Mission Road",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Patoliya Vrushti Hiteshbhai",
+      "roll": "9106712995",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Sojitra Nehanshi Maheshbhai",
+      "roll": "7990305438",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Shekhda Ami Hiteshbhai",
+      "roll": "7575862840",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Rafaliya Harmisha Kishanbhai",
+      "roll": "9099855282",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Umretiya Jilan Prakashbhai",
+      "roll": "6354890992",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Kathiriya Feni Nileshbhai",
+      "roll": "9724638170",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Desai Brinda Prakashbhai",
+      "roll": "8511026099",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Parmar Trupti Ramjibhai",
+      "roll": "9081453930",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Khokhar Dharmi Rajnibhai",
+      "roll": "6352002638",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Lakhani Jenee Satishbhai",
+      "roll": "9327255410",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Khokhar Mahek Vijaybhai",
+      "roll": "7201802739",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Rupapara Dharmi Rajnishbhai",
+      "roll": "9638513739",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Patel Riddhi Hiteshbhai",
+      "roll": "9265763927",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Nonghanvadra Devangi Rohitbhai",
+      "roll": "9824885621",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Koladiya Deep Rajnibhai",
+      "roll": "9274772994",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Patoliya Vansh Hiteshbhai",
+      "roll": "9106712995",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Savaliya Vraj Chetanbhai",
+      "roll": "9913574779",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Zalavadiya Ursh Dineshbhai",
+      "roll": "9712756935",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Madhani Jay Jamanbhai",
+      "roll": "9510483603",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Thummar Vraj Maheshbhai",
+      "roll": "9624966854",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Bhanderi Vasu Hiteshbhai",
+      "roll": "8799339541",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Joshi Dhaval Tineshbhai",
+      "roll": "9909097757",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Radadiya Achyut Rasikbhai",
+      "roll": "6353012798",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Vekariya Hitanshu Ghanshayambhai",
+      "roll": "9723961919",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Ghadiya Vibhaben Manharbhai",
+      "roll": "7284902938",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Patel Pranali Sanjaybhai",
+      "roll": "9773048983",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Vataliya Punam Vanrajbhai",
+      "roll": "9227770319",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Gajera Prajesh Vinubhai",
+      "roll": "9979266797",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Kathiriya Vraj Gopalbhai",
+      "roll": "9157525570",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Malani Netra Rajeshbhai",
+      "roll": "9979613435",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Chakrani Vishubh Rasikbhai",
+      "roll": "7984299067",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Ramani Akhil Sanjaybhai",
+      "roll": "7512185572",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Gamit Sneha Shantubhai",
+      "roll": "9978578251",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Ramani Purvit Mileshbhai",
+      "roll": "9638591182",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Sabhadiya Prince Anilbhai",
+      "roll": "8160057506",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Senjaliya Jeel Alpeshbhai",
+      "roll": "7878425593",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Sojitra Utsav Sanjaybhai",
+      "roll": "7567419024",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    },
+    {
+      "name": "Dobariya Naksh Nareshbhai",
+      "roll": "9537786833",
+      "className": "Velanja",
+      "attendance": {
+        "2026-3": {
+          "4": "P",
+          "6": "P"
+        }
+      }
+    }
+  ],
+  "exportDate": "06/04/2026, 23:38:21"
+}

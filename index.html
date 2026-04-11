@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Maruti Education Hub - Attendance System</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  margin: 0;
+  padding: 20px;
+  color: #222;
+}
+
+.container {
+  max-width: 100%;
+  margin: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #1d4ed8;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.section-title {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  color: #111827;
+}
+
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, select, button, textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-btn { background: #16a34a; color: white; }
+.print-btn { background: #2563eb; color: white; }
+.clear-btn { background: #dc2626; color: white; }
+.copy-btn { background: #7c3aed; color: white; }
+.export-btn { background: #ea580c; color: white; }
+.whatsapp-btn { background: #16a34a; color: white; }
+.present-btn { background: #059669; color: white; }
+.absent-btn { background: #dc2626; color: white; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.stat-card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #111827;
+}
+
+.class-badge {
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 13px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  max-height: 75vh;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th, td {
+  border: 1px solid #d1d5db;
+  padding: 4px 2px;
+  text-align: center;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th {
+  background: #111827;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-size: 10px;
+  padding: 5px 2px;
+}
+
+/* Fixed compact columns */
+th:nth-child(1), td:nth-child(1) { width: 35px; }   /* # */
+th:nth-child(2), td:nth-child(2) { width: 90px; }   /* Mobile */
+th:nth-child(3), td:nth-child(3) { width: 120px; }  /* Name */
+th:nth-child(4), td:nth-child(4) { width: 90px; }   /* Class */
+
+/* Day columns */
+th:nth-child(n+5):nth-child(-n+35),
+td:nth-child(n+5):nth-child(-n+35) {
+  width: 28px;
+  min-width: 28px;
+  max-width: 28px;
+  padding: 3px 1px;
+  font-size: 9px;
+}
+
+/* P, A, Action columns */
+th:nth-last-child(3), td:nth-last-child(3) { width: 35px; } /* P */
+th:nth-last-child(2), td:nth-last-child(2) { width: 35px; } /* A */
+th:nth-last-child(1), td:nth-last-child(1) { width: 70px; } /* Action */
+
+.present { background: #d1fae5; cursor: pointer; font-weight: bold; }
+.absent { background: #fee2e2; cursor: pointer; font-weight: bold; }
+.empty { background: #f3f4f6; cursor: pointer; }
+
+.sunday {
+  background: #ffe4e6 !important;
+  color: red;
+}
+
+.action-btn {
+  padding: 3px 5px;
+  margin: 1px;
+  border-radius: 5px;
+  font-size: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn { background: orange; color: white; }
+.delete-btn { background: red; color: white; }
+
+.box {
+  background: #fff7ed;
+  border: 2px solid #fdba74;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 20px;
+}
+
+.box h3 {
+  margin-top: 0;
+  color: #c2410c;
+}
+
+.absent-table th,
+.present-table th {
+  background: #ea580c;
+  color: white;
+}
+
+.present-table th {
+  background: #059669;
+}
+
+#absentText, #presentText {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 12px;
+  resize: vertical;
+}
+
+.footer-note {
+  margin-top: 25px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+@media print {
+  .top-bar, .no-print, .action-col, #absentText, #presentText, .copy-btn, .whatsapp-btn, .export-btn {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .table-wrap {
+    overflow: visible;
+    max-height: unset;
+    border: none;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    font-size: 10px;
+    padding: 4px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1 id="instituteHeading">📘 Maruti Education Hub</h1>
+    <p>Professional Attendance Management System</p>
+  </div>
+
+  <h2 class="section-title">⚙️ Setup / Student Entry</h2>
+
+  <div class="top-bar">
+    <input id="instituteName" placeholder="Institute Name" value="Maruti Education Hub">
+    <input id="teacherName" placeholder="Teacher Name">
+    <input id="batchTime" placeholder="Batch Time (e.g. 7:00 AM)">
+  </div>
+
+  <div class="top-bar">
+    <input id="studentName" placeholder="Student Name">
+    <input id="rollNumber" placeholder="Mobile Number">
+    <input id="className" placeholder="Class Name (e.g. Spoken English)">
+    <button class="add-btn" onclick="addStudent()">➕ Add Student</button>
+  </div>
+
+  <div class="top-bar">
+    <select id="monthSelect"></select>
+    <select id="yearSelect"></select>
+
+    <select id="classFilter">
+      <option value="All">All Classes</option>
+    </select>
+
+    <input id="mainSearch" placeholder="🔍 Search student by name/mobile/class">
+
+    <button class="print-btn" onclick="window.print()">🖨 Print</button>
+<button class="export-btn" onclick="exportFullBackup()">⬇ Export Full Backup</button>
+<button class="export-btn" onclick="exportCSV()">📄 Export CSV</button>
+<button class="copy-btn" onclick="document.getElementById('importFile').click()">⬆ Import Backup</button>
+<!-- <button class="clear-btn" onclick="clearAll()">🗑 Clear All</button> -->
+
+<input type="file" id="importFile" accept=".json" style="display:none;" onchange="importBackup(event)">
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Students</h3>
+      <p id="totalStudents">0</p>
+    </div>
+    <div class="stat-card">
+      <h3>Selected Month</h3>
+      <p id="currentMonthText">-</p>
+    </div>
+    <div class="stat-card">
+      <h3>Selected Class</h3>
+      <p><span id="selectedClassText" class="class-badge">All Classes</span></p>
+    </div>
+    <div class="stat-card">
+      <h3>Teacher</h3>
+      <p id="teacherText">-</p>
+    </div>
+    <div class="stat-card">
+      <h3>Batch Time</h3>
+      <p id="batchText">-</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">📅 Monthly Attendance Table</h2>
+
+  <div class="table-wrap">
+    <table id="attendanceTable"></table>
+  </div>
+
+  <!-- TODAY ABSENT -->
+  <div class="box">
+    <h3>🚫 Today's Absent Students</h3>
+
+    <div class="top-bar no-print" style="margin-bottom:10px;">
+      <input 
+        type="text" 
+        id="absentSearch" 
+        placeholder="🔍 Search absent by name/mobile/class..."
+        oninput="renderTodayAbsentList()"
+        style="min-width:260px;"
+      >
+    </div>
+
+    <p>
+      Date: <strong id="todayDateText"></strong> |
+      Total Absent: <strong id="todayAbsentCount">0</strong> |
+      Class: <strong id="absentClassLabel">All Classes</strong>
+    </p>
+
+    <table class="absent-table" id="absentTable">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Class</th>
+        <th class="no-print">Action</th>
+      </tr>
+    </table>
+
+    <div class="top-bar no-print" style="margin-top:10px;">
+      <button class="copy-btn" onclick="copyAbsentList()">📋 Copy Absent List</button>
+    </div>
+
+    <textarea id="absentText" readonly placeholder="Today's absent students list will appear here..."></textarea>
+  </div>
+
+  <!-- TODAY PRESENT -->
+  <div class="box" style="background:#ecfdf5; border-color:#86efac;">
+    <h3 style="color:#047857;">✅ Today's Present Students</h3>
+
+    <div class="top-bar no-print" style="margin-bottom:10px;">
+      <input 
+        type="text" 
+        id="presentSearch" 
+        placeholder="🔍 Search present by name/mobile/class..."
+        oninput="renderTodayPresentList()"
+        style="min-width:260px;"
+      >
+    </div>
+
+    <p>
+      Date: <strong id="todayPresentDateText"></strong> |
+      Total Present: <strong id="todayPresentCount">0</strong> |
+      Class: <strong id="presentClassLabel">All Classes</strong>
+    </p>
+
+    <table class="present-table" id="presentTable">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Class</th>
+      </tr>
+    </table>
+
+    <div class="top-bar no-print" style="margin-top:10px;">
+      <button class="present-btn" onclick="copyPresentList()">📋 Copy Present List</button>
+    </div>
+
+    <textarea id="presentText" readonly placeholder="Today's present students list will appear here..."></textarea>
+  </div>
+
+  <div class="footer-note">
+    Made for daily class attendance management
+  </div>
+
+</div>
+
+<script>
+let students = JSON.parse(localStorage.getItem("monthlyAttendanceClassWise")) || [];
+let settings = JSON.parse(localStorage.getItem("attendanceSettings")) || {
+  instituteName: "Maruti Education Hub",
+  teacherName: "",
+  batchTime: ""
+};
+
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let today = new Date();
+
+const studentName = document.getElementById("studentName");
+const rollNumber = document.getElementById("rollNumber");
+const className = document.getElementById("className");
+const monthSelect = document.getElementById("monthSelect");
+const yearSelect = document.getElementById("yearSelect");
+const classFilter = document.getElementById("classFilter");
+const mainSearch = document.getElementById("mainSearch");
+
+const instituteName = document.getElementById("instituteName");
+const teacherName = document.getElementById("teacherName");
+const batchTime = document.getElementById("batchTime");
+
+const instituteHeading = document.getElementById("instituteHeading");
+const teacherText = document.getElementById("teacherText");
+const batchText = document.getElementById("batchText");
+
+const attendanceTable = document.getElementById("attendanceTable");
+const totalStudents = document.getElementById("totalStudents");
+const currentMonthText = document.getElementById("currentMonthText");
+const selectedClassText = document.getElementById("selectedClassText");
+
+// ABSENT
+const absentTable = document.getElementById("absentTable");
+const absentText = document.getElementById("absentText");
+const todayDateText = document.getElementById("todayDateText");
+const todayAbsentCount = document.getElementById("todayAbsentCount");
+
+// PRESENT
+const presentTable = document.getElementById("presentTable");
+const presentText = document.getElementById("presentText");
+const todayPresentDateText = document.getElementById("todayPresentDateText");
+const todayPresentCount = document.getElementById("todayPresentCount");
+
+// SETTINGS LOAD
+instituteName.value = settings.instituteName || "Maruti Education Hub";
+teacherName.value = settings.teacherName || "";
+batchTime.value = settings.batchTime || "";
+
+updateHeaderSettings();
+
+// Month Dropdown
+months.forEach((m, i) => {
+  let o = document.createElement("option");
+  o.value = i;
+  o.text = m;
+  if (i === today.getMonth()) o.selected = true;
+  monthSelect.appendChild(o);
+});
+
+// Year Dropdown
+for (let y = today.getFullYear() - 3; y <= today.getFullYear() + 3; y++) {
+  let o = document.createElement("option");
+  o.value = y;
+  o.text = y;
+  if (y === today.getFullYear()) o.selected = true;
+  yearSelect.appendChild(o);
+}
+
+function save() {
+  localStorage.setItem("monthlyAttendanceClassWise", JSON.stringify(students));
+}
+
+function saveSettings() {
+  settings = {
+    instituteName: instituteName.value.trim() || "Maruti Education Hub",
+    teacherName: teacherName.value.trim(),
+    batchTime: batchTime.value.trim()
+  };
+  localStorage.setItem("attendanceSettings", JSON.stringify(settings));
+  updateHeaderSettings();
+}
+
+function updateHeaderSettings() {
+  instituteHeading.textContent = "📘 " + (settings.instituteName || "Maruti Education Hub");
+  teacherText.textContent = settings.teacherName || "-";
+  batchText.textContent = settings.batchTime || "-";
+}
+
+function daysInMonth(m, y) {
+  return new Date(y, m + 1, 0).getDate();
+}
+
+function key() {
+  return yearSelect.value + "-" + monthSelect.value;
+}
+
+function updateClassFilter() {
+  const current = classFilter.value;
+  const classes = [...new Set(students.map(s => s.className).filter(Boolean))].sort();
+
+  classFilter.innerHTML = `<option value="All">All Classes</option>`;
+  classes.forEach(cls => {
+    const o = document.createElement("option");
+    o.value = cls;
+    o.text = cls;
+    classFilter.appendChild(o);
+  });
+
+  if ([...classFilter.options].some(opt => opt.value === current)) {
+    classFilter.value = current;
+  }
+}
+
+// ADD STUDENT
+function addStudent() {
+  let name = studentName.value.trim();
+  let roll = rollNumber.value.trim();
+  let cls = className.value.trim();
+
+  if (!name || !roll || !cls) {
+    return alert("Please enter Name, Mobile, and Class Name");
+  }
+
+  students.push({
+    name,
+    roll,
+    className: cls,
+    attendance: {}
+  });
+
+  studentName.value = "";
+  rollNumber.value = "";
+  className.value = "";
+
+  save();
+  updateClassFilter();
+  render();
+}
+
+// EDIT STUDENT
+function editStudent(i) {
+  const actualIndex = getFilteredStudents()[i].originalIndex;
+
+  let name = prompt("Edit Name", students[actualIndex].name);
+  let roll = prompt("Edit Mobile", students[actualIndex].roll);
+  let cls = prompt("Edit Class Name", students[actualIndex].className);
+
+  if (name !== null && name.trim() !== "") students[actualIndex].name = name.trim();
+  if (roll !== null && roll.trim() !== "") students[actualIndex].roll = roll.trim();
+  if (cls !== null && cls.trim() !== "") students[actualIndex].className = cls.trim();
+
+  save();
+  updateClassFilter();
+  render();
+}
+
+// DELETE STUDENT
+function deleteStudent(i) {
+  const actualIndex = getFilteredStudents()[i].originalIndex;
+
+  if (confirm("Delete this student?")) {
+    students.splice(actualIndex, 1);
+    save();
+    updateClassFilter();
+    render();
+  }
+}
+
+// CLEAR ALL
+function clearAll() {
+  if (confirm("Delete ALL students and attendance data?")) {
+    students = [];
+    save();
+    updateClassFilter();
+    render();
+  }
+}
+
+// TOGGLE ATTENDANCE
+function toggle(i, d) {
+  const actualIndex = getFilteredStudents()[i].originalIndex;
+  let k = key();
+
+  if (!students[actualIndex].attendance[k]) {
+    students[actualIndex].attendance[k] = {};
+  }
+
+  let v = students[actualIndex].attendance[k][d];
+
+  students[actualIndex].attendance[k][d] =
+    v === "P" ? "A" : v === "A" ? "" : "P";
+
+  save();
+  render();
+}
+
+// FILTERED MAIN STUDENTS
+function getFilteredStudents() {
+  const selectedClass = classFilter.value;
+  const searchText = mainSearch.value.trim().toLowerCase();
+
+  return students
+    .map((s, index) => ({ ...s, originalIndex: index }))
+    .filter(s => (selectedClass === "All" || s.className === selectedClass))
+    .filter(s =>
+      s.name.toLowerCase().includes(searchText) ||
+      s.roll.toLowerCase().includes(searchText) ||
+      s.className.toLowerCase().includes(searchText)
+    );
+}
+
+// TODAY ABSENT LIST
+function renderTodayAbsentList() {
+  const selectedClass = classFilter.value;
+  const searchInput = document.getElementById("absentSearch");
+  const searchText = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+  const currentMonth = +monthSelect.value;
+  const currentYear = +yearSelect.value;
+  const todayDay = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
+  const k = key();
+
+  todayDateText.textContent = `${todayDay} ${months[todayMonth]} ${todayYear}`;
+  document.getElementById("absentClassLabel").textContent = selectedClass;
+
+  let html = `
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Mobile</th>
+      <th>Class</th>
+      <th class="no-print">Action</th>
+    </tr>
+  `;
+
+  let absentList = [];
+  let copyText = "";
+
+  if (currentMonth === todayMonth && currentYear === todayYear) {
+    let filteredStudents = students.filter(student => {
+      return selectedClass === "All" || student.className === selectedClass;
+    });
+
+    let todayAbsent = filteredStudents.filter(student => {
+      return student.attendance[k]?.[todayDay] === "A";
+    });
+
+    absentList = todayAbsent.filter(student => {
+      return (
+        student.name.toLowerCase().includes(searchText) ||
+        student.roll.toLowerCase().includes(searchText) ||
+        student.className.toLowerCase().includes(searchText)
+      );
+    });
+  }
+
+  todayAbsentCount.textContent = absentList.length;
+
+  if (absentList.length === 0) {
+    html += `
+      <tr>
+        <td colspan="5">No matching absent students today 🎉</td>
+      </tr>
+    `;
+    absentText.value = "No matching absent students today.";
+  } else {
+    absentList.forEach((student, index) => {
+      const mobile = student.roll.replace(/\D/g, "");
+
+      html += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${student.name}</td>
+          <td>${student.roll}</td>
+          <td>${student.className}</td>
+          <td class="no-print" >
+          <button class="call-btn" type="button" onclick="window.open('tel:${mobile}', '_blank')">Call</button>
+            <button class="whatsapp-btn" onclick="openWhatsApp('${mobile}', '${student.name}')">WhatsApp</button>
+          </td>
+        </tr>
+      `;
+
+      copyText += `${index + 1}. ${student.name} - ${student.roll} (${student.className})\n`;
+    });
+
+    absentText.value = copyText;
+  }
+
+  absentTable.innerHTML = html;
+}
+
+// TODAY PRESENT LIST
+function renderTodayPresentList() {
+  const selectedClass = classFilter.value;
+  const searchInput = document.getElementById("presentSearch");
+  const searchText = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+  const currentMonth = +monthSelect.value;
+  const currentYear = +yearSelect.value;
+  const todayDay = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
+  const k = key();
+
+  todayPresentDateText.textContent = `${todayDay} ${months[todayMonth]} ${todayYear}`;
+  document.getElementById("presentClassLabel").textContent = selectedClass;
+
+  let html = `
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Mobile</th>
+      <th>Class</th>
+    </tr>
+  `;
+
+  let presentList = [];
+  let copyText = "";
+
+  if (currentMonth === todayMonth && currentYear === todayYear) {
+    let filteredStudents = students.filter(student => {
+      return selectedClass === "All" || student.className === selectedClass;
+    });
+
+    let todayPresent = filteredStudents.filter(student => {
+      return student.attendance[k]?.[todayDay] === "P";
+    });
+
+    presentList = todayPresent.filter(student => {
+      return (
+        student.name.toLowerCase().includes(searchText) ||
+        student.roll.toLowerCase().includes(searchText) ||
+        student.className.toLowerCase().includes(searchText)
+      );
+    });
+  }
+
+  todayPresentCount.textContent = presentList.length;
+
+  if (presentList.length === 0) {
+    html += `
+      <tr>
+        <td colspan="4">No matching present students today.</td>
+      </tr>
+    `;
+    presentText.value = "No matching present students today.";
+  } else {
+    presentList.forEach((student, index) => {
+      html += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${student.name}</td>
+          <td>${student.roll}</td>
+          <td>${student.className}</td>
+        </tr>
+      `;
+
+      copyText += `${index + 1}. ${student.name} - ${student.roll} (${student.className})\n`;
+    });
+
+    presentText.value = copyText;
+  }
+
+  presentTable.innerHTML = html;
+}
+
+// COPY ABSENT LIST
+function copyAbsentList() {
+  navigator.clipboard.writeText(absentText.value)
+    .then(() => alert("Absent list copied!"))
+    .catch(() => {
+      absentText.select();
+      document.execCommand("copy");
+      alert("Absent list copied!");
+    });
+}
+
+// COPY PRESENT LIST
+function copyPresentList() {
+  navigator.clipboard.writeText(presentText.value)
+    .then(() => alert("Present list copied!"))
+    .catch(() => {
+      presentText.select();
+      document.execCommand("copy");
+      alert("Present list copied!");
+    });
+}
+
+// WHATSAPP
+function openWhatsApp(number, name) {
+  if (!number) {
+    alert("Invalid mobile number");
+    return;
+  }
+
+  let message = `Hello ${name}, today you were absent in class. Please contact us.`;
+  let url = `https://wa.me/91${number}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
+
+// RENDER MAIN TABLE
+function render() {
+  let m = +monthSelect.value;
+  let y = +yearSelect.value;
+  let days = daysInMonth(m, y);
+  let k = key();
+  let filteredStudents = getFilteredStudents();
+
+  currentMonthText.textContent = months[m] + " " + y;
+  totalStudents.textContent = filteredStudents.length;
+  selectedClassText.textContent = classFilter.value;
+
+  let html = `<tr>
+    <th>#</th>
+    <th>Mobile</th>
+    <th>Name</th>
+    <th>Class</th>`;
+
+  for (let d = 1; d <= days; d++) {
+    let dt = new Date(y, m, d);
+    let day = dt.toLocaleDateString("en-US", { weekday: "short" });
+    let sun = dt.getDay() === 0;
+
+    html += `<th class="${sun ? 'sunday' : ''}">
+      ${d}<br>${day}
+    </th>`;
+  }
+
+  html += `<th>P</th><th>A</th><th class="action-col">Action</th></tr>`;
+
+  filteredStudents.forEach((s, i) => {
+    let p = 0, a = 0;
+
+    html += `<tr>
+      <td>${i + 1}</td>
+      <td>${s.roll}</td>
+      <td>${s.name}</td>
+      <td>${s.className}</td>`;
+
+    for (let d = 1; d <= days; d++) {
+      let v = s.attendance[k]?.[d] || "";
+
+      if (v === "P") p++;
+      if (v === "A") a++;
+
+      let cls = v === "P" ? "present" : v === "A" ? "absent" : "empty";
+
+      html += `<td class="${cls}" onclick="toggle(${i},${d})">${v || "-"}</td>`;
+    }
+
+    html += `
+      <td>${p}</td>
+      <td>${a}</td>
+      <td class="action-col">
+        <button class="action-btn edit-btn" onclick="editStudent(${i})">✏️</button>
+        <button class="action-btn delete-btn" onclick="deleteStudent(${i})">❌</button>
+      </td>
+    </tr>`;
+  });
+
+  if (filteredStudents.length === 0) {
+    html += `<tr><td colspan="${days + 7}" style="padding:20px;">No students found.</td></tr>`;
+  }
+
+  attendanceTable.innerHTML = html;
+  renderTodayAbsentList();
+  renderTodayPresentList();
+}
+
+// EVENTS
+monthSelect.onchange = render;
+yearSelect.onchange = render;
+classFilter.onchange = render;
+mainSearch.oninput = render;
+
+instituteName.oninput = saveSettings;
+teacherName.oninput = saveSettings;
+batchTime.oninput = saveSettings;
+
+updateClassFilter();
+render();
+// EXPORT FULL BACKUP (ALL DATA)
+function exportFullBackup() {
+  const backupData = {
+    settings: settings,
+    students: students,
+    exportDate: new Date().toLocaleString()
+  };
+
+  const blob = new Blob([JSON.stringify(backupData, null, 2)], {
+    type: "application/json"
+  });
+
+  const a = document.createElement("a");
+  const fileName = `Attendance_Backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  a.click();
+
+  alert("Full backup downloaded successfully!\nNow copy this file to your pendrive.");
+}
+
+// EXPORT CSV (OPEN IN EXCEL)
+function exportCSV() {
+  let m = +monthSelect.value;
+  let y = +yearSelect.value;
+  let days = daysInMonth(m, y);
+  let k = key();
+
+  let csv = [];
+  let header = ["No", "Mobile", "Name", "Class"];
+
+  for (let d = 1; d <= days; d++) {
+    header.push(`Day ${d}`);
+  }
+
+  header.push("Present Count", "Absent Count");
+  csv.push(header.join(","));
+
+  students.forEach((s, i) => {
+    let p = 0, a = 0;
+    let row = [i + 1, `"${s.roll}"`, `"${s.name}"`, `"${s.className}"`];
+
+    for (let d = 1; d <= days; d++) {
+      let v = s.attendance[k]?.[d] || "";
+      if (v === "P") p++;
+      if (v === "A") a++;
+      row.push(v || "-");
+    }
+
+    row.push(p, a);
+    csv.push(row.join(","));
+  });
+
+  const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  const fileName = `Attendance_${months[m]}_${y}.csv`;
+
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  a.click();
+
+  alert("CSV file downloaded successfully!\nYou can open it in Excel and save it in your pendrive.");
+}
+
+// IMPORT BACKUP
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      if (data.students && Array.isArray(data.students)) {
+        students = data.students;
+        settings = data.settings || {
+          instituteName: "Maruti Education Hub",
+          teacherName: "",
+          batchTime: ""
+        };
+
+        localStorage.setItem("monthlyAttendanceClassWise", JSON.stringify(students));
+        localStorage.setItem("attendanceSettings", JSON.stringify(settings));
+
+        instituteName.value = settings.instituteName || "Maruti Education Hub";
+        teacherName.value = settings.teacherName || "";
+        batchTime.value = settings.batchTime || "";
+
+        updateHeaderSettings();
+        updateClassFilter();
+        render();
+
+        alert("Backup imported successfully!");
+      } else {
+        alert("Invalid backup file.");
+      }
+    } catch (error) {
+      alert("Error reading backup file.");
+    }
+  };
+
+  reader.readAsText(file);
+}
+</script>
+
+</body>
+</html>

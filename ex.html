@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Monthly Attendance Sheet</title>
+
+<style>
+body { font-family: Arial; background:#f4f7fb; padding:20px; }
+
+.container {
+  background:white;
+  padding:20px;
+  border-radius:12px;
+}
+
+.top-bar {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+input,select,button {
+  padding:8px;
+  border-radius:8px;
+}
+
+button { cursor:pointer; }
+
+.add-btn {background:green;color:white;}
+.print-btn {background:blue;color:white;}
+.clear-btn {background:red;color:white;}
+
+table {
+  width:max-content;
+  border-collapse:collapse;
+}
+
+th,td {
+  border:1px solid #ccc;
+  padding:6px;
+  text-align:center;
+  font-size:12px;
+}
+
+th {background:#222;color:white;}
+
+.present {background:#d1fae5;}
+.absent {background:#fee2e2;}
+.empty {background:#f3f4f6;}
+
+.sunday {background:#ffe4e6;color:red;}
+
+.action-btn {
+  padding:4px 6px;
+  margin:2px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.edit-btn {background:orange;}
+.delete-btn {background:red;color:white;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📘 Monthly Attendance Sheet</h2>
+
+<div class="top-bar">
+  <input id="studentName" placeholder="Student Name">
+  <input id="rollNumber" placeholder="Mobile">
+
+  <select id="monthSelect"></select>
+  <select id="yearSelect"></select>
+
+  <button class="add-btn" onclick="addStudent()">➕ Add</button>
+  <button class="print-btn" onclick="print()">🖨 Print</button>
+  <button class="clear-btn" onclick="clearAll()">🗑 Clear</button>
+</div>
+
+<div>
+Total: <span id="totalStudents">0</span> |
+Month: <span id="currentMonthText"></span>
+</div>
+
+<div style="overflow:auto;">
+<table id="attendanceTable"></table>
+</div>
+
+</div>
+
+<script>
+let students = JSON.parse(localStorage.getItem("monthlyAttendance")) || [];
+
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+let today = new Date();
+
+// dropdowns
+months.forEach((m,i)=>{
+  let o=document.createElement("option");
+  o.value=i; o.text=m;
+  if(i===today.getMonth()) o.selected=true;
+  monthSelect.appendChild(o);
+});
+
+for(let y=today.getFullYear()-3;y<=today.getFullYear()+3;y++){
+  let o=document.createElement("option");
+  o.value=y; o.text=y;
+  if(y===today.getFullYear()) o.selected=true;
+  yearSelect.appendChild(o);
+}
+
+function save(){ localStorage.setItem("monthlyAttendance",JSON.stringify(students)); }
+
+function daysInMonth(m,y){ return new Date(y,m+1,0).getDate(); }
+
+function key(){ return yearSelect.value+"-"+monthSelect.value; }
+
+// ADD
+function addStudent(){
+  let name=studentName.value.trim();
+  let roll=rollNumber.value.trim();
+
+  if(!name||!roll) return alert("Enter details");
+
+  students.push({name,roll,attendance:{}});
+  studentName.value="";
+  rollNumber.value="";
+  save();
+  render();
+}
+
+// EDIT
+function editStudent(i){
+  let name=prompt("Edit Name",students[i].name);
+  let roll=prompt("Edit Mobile",students[i].roll);
+
+  if(name!==null) students[i].name=name;
+  if(roll!==null) students[i].roll=roll;
+
+  save();
+  render();
+}
+
+// DELETE
+function deleteStudent(i){
+  if(confirm("Delete student?")){
+    students.splice(i,1);
+    save();
+    render();
+  }
+}
+
+// CLEAR
+function clearAll(){
+  if(confirm("Delete all data?")){
+    students=[];
+    save();
+    render();
+  }
+}
+
+// TOGGLE
+function toggle(i,d){
+  let k=key();
+
+  if(!students[i].attendance[k])
+    students[i].attendance[k]={};
+
+  let v=students[i].attendance[k][d];
+
+  students[i].attendance[k][d] =
+    v==="P"?"A":v==="A"?"":"P";
+
+  save();
+  render();
+}
+
+// RENDER
+function render(){
+  let table=attendanceTable;
+  let m=+monthSelect.value;
+  let y=+yearSelect.value;
+  let days=daysInMonth(m,y);
+  let k=key();
+
+  currentMonthText.textContent=months[m]+" "+y;
+  totalStudents.textContent=students.length;
+
+  let html=`<tr>
+  <th>#</th>
+  <th>Mobile</th>
+  <th>Name</th>`;
+
+  for(let d=1;d<=days;d++){
+    let dt=new Date(y,m,d);
+    let day=dt.toLocaleDateString("en-US",{weekday:"short"});
+    let sun=dt.getDay()===0;
+
+    html+=`<th class="${sun?'sunday':''}">
+    ${d}<br>${day}</th>`;
+  }
+
+  html+=`<th>P</th><th>A</th><th>Action</th></tr>`;
+
+  students.forEach((s,i)=>{
+    let p=0,a=0;
+
+    html+=`<tr>
+    <td>${i+1}</td>
+    <td>${s.roll}</td>
+    <td>${s.name}</td>`;
+
+    for(let d=1;d<=days;d++){
+      let v=s.attendance[k]?.[d]||"";
+
+      if(v==="P")p++;
+      if(v==="A")a++;
+
+      let cls=v==="P"?"present":v==="A"?"absent":"empty";
+
+      html+=`<td class="${cls}" onclick="toggle(${i},${d})">
+      ${v||"-"}</td>`;
+    }
+
+    html+=`<td>${p}</td><td>${a}</td>
+    <td>
+      <button class="action-btn edit-btn" onclick="editStudent(${i})">✏️</button>
+      <button class="action-btn delete-btn" onclick="deleteStudent(${i})">❌</button>
+    </td>
+    </tr>`;
+  });
+
+  table.innerHTML=html;
+}
+
+monthSelect.onchange=render;
+yearSelect.onchange=render;
+
+render();
+</script>
+
+</body>
+</html>
