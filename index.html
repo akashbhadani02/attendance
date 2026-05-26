@@ -16,50 +16,52 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#f4f7fb;
-  padding:15px;
+  background:#f1f5f9;
+  padding:10px;
 }
 
 .container{
   background:white;
-  padding:15px;
-  border-radius:15px;
+  border-radius:16px;
+  padding:12px;
   box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
 h1{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:15px;
   color:#1d4ed8;
 }
+
+/* TOP BAR */
 
 .top-bar{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  margin-bottom:15px;
+  margin-bottom:12px;
 }
 
-input,
-select,
-button{
+.top-bar input,
+.top-bar select,
+.top-bar button{
   padding:10px;
   border-radius:10px;
-  border:1px solid #ccc;
+  border:1px solid #d1d5db;
   font-size:14px;
 }
 
-input,
-select{
+.top-bar input,
+.top-bar select{
   flex:1;
   min-width:160px;
 }
 
 button{
   border:none;
+  color:white;
   cursor:pointer;
   font-weight:bold;
-  color:white;
 }
 
 .add-btn{
@@ -85,140 +87,22 @@ button{
 .edit-btn{
   background:#f59e0b;
   padding:5px 8px;
+  border-radius:6px;
 }
 
 .delete-btn{
   background:#dc2626;
   padding:5px 8px;
+  border-radius:6px;
 }
 
-.table-wrap{
-  overflow:auto;
-  border:1px solid #ddd;
-  border-radius:12px;
-  max-height:80vh;
-  -webkit-overflow-scrolling:touch;
-}
-
-table{
-  border-collapse:collapse;
-  width:max-content;
-  min-width:100%;
-}
-
-th, td{
-  border:1px solid #d1d5db;
-  padding:5px;
-  text-align:center;
-  min-width:35px;
-  font-size:12px;
-}
-
-th{
-  background:#111827;
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-/* FREEZE COLUMNS */
-
-th:nth-child(1),
-td:nth-child(1){
-  position:sticky;
-  left:0;
-  background:white;
-  z-index:4;
-  min-width:40px;
-}
-
-th:nth-child(2),
-td:nth-child(2){
-  position:sticky;
-  left:40px;
-  background:white;
-  z-index:4;
-  min-width:140px;
-}
-
-th:nth-child(3),
-td:nth-child(3){
-  position:sticky;
-  left:180px;
-  background:white;
-  z-index:4;
-  min-width:120px;
-}
-
-th:nth-child(4),
-td:nth-child(4){
-  position:sticky;
-  left:300px;
-  background:white;
-  z-index:4;
-  min-width:120px;
-}
-
-th:nth-child(5),
-td:nth-child(5){
-  position:sticky;
-  left:420px;
-  background:white;
-  z-index:4;
-  min-width:140px;
-}
-
-th:nth-child(6),
-td:nth-child(6){
-  position:sticky;
-  left:560px;
-  background:white;
-  z-index:4;
-  min-width:90px;
-}
-
-.present{
-  background:#d1fae5;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.absent{
-  background:#fee2e2;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.empty{
-  background:#f3f4f6;
-  cursor:pointer;
-}
-
-.sunday{
-  background:#ede9fe !important;
-  color:#6d28d9;
-}
-
-.paid{
-  background:#dcfce7;
-  color:#166534;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.unpaid{
-  background:#fee2e2;
-  color:#991b1b;
-  font-weight:bold;
-  cursor:pointer;
-}
+/* STATS */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-bottom:20px;
+  gap:10px;
+  margin-bottom:15px;
 }
 
 .card{
@@ -234,31 +118,147 @@ td:nth-child(6){
 }
 
 .card p{
-  font-size:24px;
+  font-size:22px;
   font-weight:bold;
 }
 
-/* MOBILE RESPONSIVE */
+/* TABLE */
+
+.table-wrap{
+  overflow:auto;
+  border-radius:12px;
+  border:1px solid #ddd;
+  max-height:80vh;
+  -webkit-overflow-scrolling:touch;
+}
+
+table{
+  border-collapse:collapse;
+  width:max-content;
+  min-width:100%;
+}
+
+th,
+td{
+  border:1px solid #d1d5db;
+  padding:5px;
+  text-align:center;
+  min-width:35px;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+th{
+  background:#111827;
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+/* STICKY COLUMNS */
+
+th:nth-child(1),
+td:nth-child(1){
+  position:sticky;
+  left:0;
+  background:white;
+  z-index:5;
+  min-width:40px;
+}
+
+th:nth-child(2),
+td:nth-child(2){
+  position:sticky;
+  left:40px;
+  background:white;
+  z-index:5;
+  min-width:150px;
+}
+
+th:nth-child(3),
+td:nth-child(3){
+  position:sticky;
+  left:190px;
+  background:white;
+  z-index:5;
+  min-width:120px;
+}
+
+th:nth-child(4),
+td:nth-child(4){
+  position:sticky;
+  left:310px;
+  background:white;
+  z-index:5;
+  min-width:190px;
+}
+
+/* ATTENDANCE */
+
+.present{
+  background:#d1fae5;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.absent{
+  background:#fee2e2;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.empty{
+  background:#f3f4f6;
+  cursor:pointer;
+}
+
+.sunday{
+  background:#ede9fe !important;
+  color:#6d28d9;
+}
+
+/* FEES */
+
+.paid{
+  background:#dcfce7;
+  color:#166534;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.partial{
+  background:#fef3c7;
+  color:#92400e;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.unpaid{
+  background:#fee2e2;
+  color:#991b1b;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* MOBILE */
 
 @media(max-width:768px){
 
 body{
-  padding:5px;
+  padding:4px;
 }
 
 .container{
   padding:8px;
-  border-radius:10px;
 }
 
 h1{
   font-size:20px;
-  margin-bottom:15px;
 }
 
 .top-bar{
   flex-direction:column;
-  gap:8px;
 }
 
 .top-bar input,
@@ -266,13 +266,10 @@ h1{
 .top-bar button{
   width:100%;
   min-width:100%;
-  font-size:14px;
-  padding:12px;
 }
 
 .stats{
   grid-template-columns:repeat(2,1fr);
-  gap:8px;
 }
 
 .card{
@@ -288,84 +285,43 @@ h1{
 }
 
 .table-wrap{
-  overflow:auto;
   max-height:75vh;
-  border-radius:10px;
 }
 
 table{
-  min-width:1350px;
+  min-width:1500px;
 }
 
 th,
 td{
   font-size:10px;
   padding:4px;
-  min-width:32px;
 }
 
-/* MOBILE FREEZE COLUMN WIDTH */
+/* MOBILE STICKY */
 
 th:nth-child(1),
 td:nth-child(1){
+  left:0;
   min-width:35px;
 }
 
 th:nth-child(2),
 td:nth-child(2){
+  left:35px;
   min-width:120px;
 }
 
 th:nth-child(3),
 td:nth-child(3){
-  min-width:100px;
-}
-
-th:nth-child(4),
-td:nth-child(4){
-  min-width:100px;
-}
-
-th:nth-child(5),
-td:nth-child(5){
-  min-width:110px;
-}
-
-th:nth-child(6),
-td:nth-child(6){
-  min-width:80px;
-}
-
-/* MOBILE LEFT POSITION */
-
-th:nth-child(1),
-td:nth-child(1){
-  left:0;
-}
-
-th:nth-child(2),
-td:nth-child(2){
-  left:35px;
-}
-
-th:nth-child(3),
-td:nth-child(3){
   left:155px;
+  min-width:100px;
 }
 
 th:nth-child(4),
 td:nth-child(4){
   left:255px;
-}
-
-th:nth-child(5),
-td:nth-child(5){
-  left:355px;
-}
-
-th:nth-child(6),
-td:nth-child(6){
-  left:465px;
+  min-width:160px;
 }
 
 .edit-btn,
@@ -394,37 +350,22 @@ td:nth-child(6){
 <input type="text" id="studentMobile" placeholder="Mobile Number">
 
 <select id="studentClass">
-
 <option value="">Select Branch</option>
-
 <option value="Mota Varachha">Mota Varachha</option>
-
 <option value="Mission Road">Mission Road</option>
-
 <option value="Velanja">Velanja</option>
-
 </select>
 
 <select id="studentCourse">
-
 <option value="">Select Course</option>
-
 <option value="Spoken English">Spoken English</option>
-
 <option value="IELTS">IELTS</option>
-
 <option value="CCC">CCC</option>
-
 <option value="Tally Prime">Tally Prime</option>
-
 <option value="MS Office">MS Office</option>
-
 <option value="Computer Basic">Computer Basic</option>
-
 <option value="Web Design">Web Design</option>
-
 <option value="Graphic Design">Graphic Design</option>
-
 </select>
 
 <input type="number" id="studentFees" placeholder="Fees">
@@ -440,37 +381,22 @@ td:nth-child(6){
 <div class="top-bar">
 
 <select id="filterClass" onchange="render()">
-
 <option value="All">All Branches</option>
-
 <option value="Mota Varachha">Mota Varachha</option>
-
 <option value="Mission Road">Mission Road</option>
-
 <option value="Velanja">Velanja</option>
-
 </select>
 
 <select id="filterCourse" onchange="render()">
-
 <option value="All">All Courses</option>
-
 <option value="Spoken English">Spoken English</option>
-
 <option value="IELTS">IELTS</option>
-
 <option value="CCC">CCC</option>
-
 <option value="Tally Prime">Tally Prime</option>
-
 <option value="MS Office">MS Office</option>
-
 <option value="Computer Basic">Computer Basic</option>
-
 <option value="Web Design">Web Design</option>
-
 <option value="Graphic Design">Graphic Design</option>
-
 </select>
 
 <button class="present-btn" onclick="markAllPresent()">
@@ -574,6 +500,8 @@ return `${year}-${month}`;
 
 }
 
+/* ADD STUDENT */
+
 function addStudent(){
 
 const name =
@@ -602,16 +530,17 @@ return;
 students.push({
 
 name:name,
-
 mobile:mobile,
-
 studentClass:studentClass,
-
 course:course,
 
 fees:Number(fees),
 
-feesPaid:false,
+paidAmount:0,
+
+remainingFees:Number(fees),
+
+feesStatus:"Pending",
 
 attendance:{}
 
@@ -628,6 +557,109 @@ document.getElementById("studentCourse").value="";
 document.getElementById("studentFees").value="";
 
 }
+
+/* FEES */
+
+function manageFees(i){
+
+let totalFees = students[i].fees;
+
+let currentPaid = students[i].paidAmount || 0;
+
+let newPaid = prompt(
+`Total Fees: ₹${totalFees}
+
+Enter Paid Amount`,
+currentPaid
+);
+
+if(newPaid===null) return;
+
+newPaid = Number(newPaid);
+
+if(isNaN(newPaid) || newPaid < 0){
+
+alert("Invalid Amount");
+
+return;
+
+}
+
+students[i].paidAmount = newPaid;
+
+students[i].remainingFees =
+totalFees - newPaid;
+
+if(newPaid >= totalFees){
+
+students[i].feesStatus = "Paid";
+
+}else if(newPaid > 0){
+
+students[i].feesStatus = "Partial";
+
+}else{
+
+students[i].feesStatus = "Pending";
+
+}
+
+save();
+
+render();
+
+}
+
+/* EDIT */
+
+function editStudent(i){
+
+let newName =
+prompt("Edit Name", students[i].name);
+
+let newMobile =
+prompt("Edit Mobile", students[i].mobile);
+
+let newFees =
+prompt("Edit Fees", students[i].fees);
+
+if(newName) students[i].name = newName;
+
+if(newMobile) students[i].mobile = newMobile;
+
+if(newFees){
+
+students[i].fees = Number(newFees);
+
+students[i].remainingFees =
+students[i].fees -
+(students[i].paidAmount || 0);
+
+}
+
+save();
+
+render();
+
+}
+
+/* DELETE */
+
+function deleteStudent(i){
+
+if(confirm("Delete Student?")){
+
+students.splice(i,1);
+
+save();
+
+render();
+
+}
+
+}
+
+/* ATTENDANCE */
 
 function toggleAttendance(i,d){
 
@@ -655,63 +687,7 @@ render();
 
 }
 
-function toggleFees(i){
-
-students[i].feesPaid =
-!students[i].feesPaid;
-
-save();
-
-render();
-
-}
-
-function editStudent(i){
-
-let newName =
-prompt("Edit Name", students[i].name);
-
-let newMobile =
-prompt("Edit Mobile", students[i].mobile);
-
-let newBranch =
-prompt("Edit Branch", students[i].studentClass);
-
-let newCourse =
-prompt("Edit Course", students[i].course);
-
-let newFees =
-prompt("Edit Fees", students[i].fees);
-
-if(newName) students[i].name = newName;
-
-if(newMobile) students[i].mobile = newMobile;
-
-if(newBranch) students[i].studentClass = newBranch;
-
-if(newCourse) students[i].course = newCourse;
-
-if(newFees) students[i].fees = Number(newFees);
-
-save();
-
-render();
-
-}
-
-function deleteStudent(i){
-
-if(confirm("Delete Student?")){
-
-students.splice(i,1);
-
-save();
-
-render();
-
-}
-
-}
+/* RENDER */
 
 function render(){
 
@@ -749,15 +725,8 @@ let html = `
 <tr>
 
 <th>#</th>
-
 <th>Name</th>
-
 <th>Mobile</th>
-
-<th>Branch</th>
-
-<th>Course</th>
-
 <th>Fees</th>
 `;
 
@@ -794,11 +763,7 @@ let a=0;
 
 totalFees += s.fees;
 
-if(s.feesPaid){
-
-paidFees += s.fees;
-
-}
+paidFees += s.paidAmount || 0;
 
 html += `
 <tr>
@@ -807,22 +772,29 @@ html += `
 
 <td>${s.name}</td>
 
-<td>${s.mobile || "-"}</td>
-
-<td>${s.studentClass}</td>
-
-<td>${s.course}</td>
+<td>${s.mobile}</td>
 
 <td
-class="${s.feesPaid ? 'paid' : 'unpaid'}"
-onclick="toggleFees(${originalIndex})"
+class="
+${s.feesStatus==='Paid'
+? 'paid'
+: s.feesStatus==='Partial'
+? 'partial'
+: 'unpaid'}
+"
+onclick="manageFees(${originalIndex})"
 >
 
-₹${s.fees}
-
+Total: ₹${s.fees}
 <br>
 
-${s.feesPaid ? 'Paid' : 'Pending'}
+Paid: ₹${s.paidAmount || 0}
+<br>
+
+Left: ₹${s.remainingFees || s.fees}
+<br>
+
+${s.feesStatus}
 
 </td>
 `;
@@ -859,8 +831,12 @@ ${value || "-"}
 
 }
 
+let totalMarked = p + a;
+
 let percent =
-((p/days)*100).toFixed(0);
+totalMarked > 0
+? ((p/totalMarked)*100).toFixed(0)
+: 0;
 
 html += `
 <td>${p}</td>
@@ -870,25 +846,21 @@ html += `
 <td>${percent}%</td>
 
 <td>
-
 <button
 class="edit-btn"
 onclick="editStudent(${originalIndex})"
 >
 ✏️
 </button>
-
 </td>
 
 <td>
-
 <button
 class="delete-btn"
 onclick="deleteStudent(${originalIndex})"
 >
 ❌
 </button>
-
 </td>
 
 </tr>
@@ -908,6 +880,8 @@ document.getElementById("pendingFees").innerText =
 "₹" + (totalFees - paidFees);
 
 }
+
+/* BULK ATTENDANCE */
 
 function markAllPresent(){
 
@@ -977,7 +951,7 @@ render();
 
 }
 
-/* EXPORT BACKUP */
+/* EXPORT */
 
 function exportBackup(){
 
@@ -1005,7 +979,7 @@ link.click();
 
 }
 
-/* IMPORT BACKUP */
+/* IMPORT */
 
 function importBackup(event){
 
