@@ -157,13 +157,22 @@ td:nth-child(4){
   left:300px;
   background:white;
   z-index:4;
-  min-width:140px;
+  min-width:120px;
 }
 
 th:nth-child(5),
 td:nth-child(5){
   position:sticky;
-  left:440px;
+  left:420px;
+  background:white;
+  z-index:4;
+  min-width:140px;
+}
+
+th:nth-child(6),
+td:nth-child(6){
+  position:sticky;
+  left:560px;
   background:white;
   z-index:4;
   min-width:90px;
@@ -252,7 +261,7 @@ body{
 }
 
 table{
-  min-width:1400px;
+  min-width:1600px;
 }
 
 th,
@@ -277,6 +286,8 @@ td{
 <div class="top-bar">
 
 <input type="text" id="studentName" placeholder="Student Name">
+
+<input type="text" id="studentMobile" placeholder="Mobile Number">
 
 <select id="studentClass">
 
@@ -464,6 +475,9 @@ function addStudent(){
 const name =
 document.getElementById("studentName").value.trim();
 
+const mobile =
+document.getElementById("studentMobile").value.trim();
+
 const studentClass =
 document.getElementById("studentClass").value;
 
@@ -473,7 +487,7 @@ document.getElementById("studentCourse").value;
 const fees =
 document.getElementById("studentFees").value;
 
-if(!name || !studentClass || !course || !fees){
+if(!name || !mobile || !studentClass || !course || !fees){
 
 alert("Fill all fields");
 
@@ -484,6 +498,8 @@ return;
 students.push({
 
 name:name,
+
+mobile:mobile,
 
 studentClass:studentClass,
 
@@ -502,6 +518,7 @@ save();
 render();
 
 document.getElementById("studentName").value="";
+document.getElementById("studentMobile").value="";
 document.getElementById("studentClass").value="";
 document.getElementById("studentCourse").value="";
 document.getElementById("studentFees").value="";
@@ -550,6 +567,9 @@ function editStudent(i){
 let newName =
 prompt("Edit Name", students[i].name);
 
+let newMobile =
+prompt("Edit Mobile", students[i].mobile);
+
 let newBranch =
 prompt("Edit Branch", students[i].studentClass);
 
@@ -560,6 +580,8 @@ let newFees =
 prompt("Edit Fees", students[i].fees);
 
 if(newName) students[i].name = newName;
+
+if(newMobile) students[i].mobile = newMobile;
 
 if(newBranch) students[i].studentClass = newBranch;
 
@@ -626,6 +648,8 @@ let html = `
 
 <th>Name</th>
 
+<th>Mobile</th>
+
 <th>Branch</th>
 
 <th>Course</th>
@@ -678,6 +702,8 @@ html += `
 <td>${index+1}</td>
 
 <td>${s.name}</td>
+
+<td>${s.mobile || "-"}</td>
 
 <td>${s.studentClass}</td>
 
