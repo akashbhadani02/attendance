@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Maruti Education Hub - Attendance & Fees System</title>
+<title>Maruti Education Hub</title>
 
 <style>
 
@@ -17,13 +17,13 @@
 body{
   font-family:Arial,sans-serif;
   background:#f4f7fb;
-  padding:20px;
+  padding:15px;
 }
 
 .container{
   background:white;
-  padding:20px;
-  border-radius:16px;
+  padding:15px;
+  border-radius:15px;
   box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
@@ -41,6 +41,7 @@ h1{
 }
 
 input,
+select,
 button{
   padding:10px;
   border-radius:10px;
@@ -48,7 +49,8 @@ button{
   font-size:14px;
 }
 
-input{
+input,
+select{
   flex:1;
   min-width:160px;
 }
@@ -76,22 +78,18 @@ button{
   background:#ea580c;
 }
 
-.dark-btn{
-  background:#7c3aed;
-}
-
 .export-btn{
   background:#2563eb;
 }
 
 .edit-btn{
   background:#f59e0b;
-  padding:6px 10px;
+  padding:5px 8px;
 }
 
 .delete-btn{
   background:#dc2626;
-  padding:6px 10px;
+  padding:5px 8px;
 }
 
 .table-wrap{
@@ -99,6 +97,7 @@ button{
   border:1px solid #ddd;
   border-radius:12px;
   max-height:80vh;
+  -webkit-overflow-scrolling:touch;
 }
 
 table{
@@ -109,7 +108,7 @@ table{
 
 th, td{
   border:1px solid #d1d5db;
-  padding:6px;
+  padding:5px;
   text-align:center;
   min-width:35px;
   font-size:12px;
@@ -123,14 +122,14 @@ th{
   z-index:5;
 }
 
-/* Freeze Columns */
+/* FREEZE COLUMNS */
 
 th:nth-child(1),
 td:nth-child(1){
   position:sticky;
   left:0;
-  z-index:4;
   background:white;
+  z-index:4;
   min-width:40px;
 }
 
@@ -138,36 +137,36 @@ th:nth-child(2),
 td:nth-child(2){
   position:sticky;
   left:40px;
-  z-index:4;
   background:white;
-  min-width:110px;
+  z-index:4;
+  min-width:140px;
 }
 
 th:nth-child(3),
 td:nth-child(3){
   position:sticky;
-  left:150px;
-  z-index:4;
+  left:180px;
   background:white;
-  min-width:180px;
+  z-index:4;
+  min-width:120px;
 }
 
 th:nth-child(4),
 td:nth-child(4){
   position:sticky;
-  left:330px;
-  z-index:4;
+  left:300px;
   background:white;
-  min-width:120px;
+  z-index:4;
+  min-width:140px;
 }
 
 th:nth-child(5),
 td:nth-child(5){
   position:sticky;
-  left:450px;
-  z-index:4;
+  left:440px;
   background:white;
-  min-width:110px;
+  z-index:4;
+  min-width:90px;
 }
 
 .present{
@@ -230,55 +229,37 @@ td:nth-child(5){
   font-weight:bold;
 }
 
-/* Dark Mode */
-
-.dark-mode{
-  background:#111827;
-  color:white;
-}
-
-.dark-mode .container{
-  background:#1f2937;
-}
-
-.dark-mode td{
-  background:#111827;
-  color:white;
-}
-
-.dark-mode input{
-  background:#374151;
-  color:white;
-  border:1px solid #555;
-}
-
-.dark-mode .card{
-  background:#374151;
-}
-
-.dark-mode th:nth-child(1),
-.dark-mode td:nth-child(1),
-.dark-mode th:nth-child(2),
-.dark-mode td:nth-child(2),
-.dark-mode th:nth-child(3),
-.dark-mode td:nth-child(3),
-.dark-mode th:nth-child(4),
-.dark-mode td:nth-child(4),
-.dark-mode th:nth-child(5),
-.dark-mode td:nth-child(5){
-  background:#1f2937;
-}
+/* MOBILE */
 
 @media(max-width:768px){
 
-  body{
-    padding:10px;
-  }
+body{
+  padding:8px;
+}
 
-  th, td{
-    font-size:10px;
-    padding:4px;
-  }
+.container{
+  padding:10px;
+}
+
+.top-bar{
+  flex-direction:column;
+}
+
+.top-bar input,
+.top-bar select,
+.top-bar button{
+  width:100%;
+}
+
+table{
+  min-width:1400px;
+}
+
+th,
+td{
+  font-size:10px;
+  padding:4px;
+}
 
 }
 
@@ -291,15 +272,47 @@ td:nth-child(5){
 
 <h1>📘 Maruti Education Hub</h1>
 
+<!-- ADD STUDENT -->
+
 <div class="top-bar">
 
 <input type="text" id="studentName" placeholder="Student Name">
 
-<input type="text" id="studentMobile" placeholder="Mobile Number">
+<select id="studentClass">
 
-<input type="text" id="studentClass" placeholder="Class Name">
+<option value="">Select Branch</option>
 
-<input type="number" id="studentFees" placeholder="Monthly Fees">
+<option value="Mota Varachha">Mota Varachha</option>
+
+<option value="Mission Road">Mission Road</option>
+
+<option value="Velanja">Velanja</option>
+
+</select>
+
+<select id="studentCourse">
+
+<option value="">Select Course</option>
+
+<option value="Spoken English">Spoken English</option>
+
+<option value="IELTS">IELTS</option>
+
+<option value="CCC">CCC</option>
+
+<option value="Tally Prime">Tally Prime</option>
+
+<option value="MS Office">MS Office</option>
+
+<option value="Computer Basic">Computer Basic</option>
+
+<option value="Web Design">Web Design</option>
+
+<option value="Graphic Design">Graphic Design</option>
+
+</select>
+
+<input type="number" id="studentFees" placeholder="Fees">
 
 <button class="add-btn" onclick="addStudent()">
 ➕ Add Student
@@ -307,7 +320,43 @@ td:nth-child(5){
 
 </div>
 
+<!-- FILTER -->
+
 <div class="top-bar">
+
+<select id="filterClass" onchange="render()">
+
+<option value="All">All Branches</option>
+
+<option value="Mota Varachha">Mota Varachha</option>
+
+<option value="Mission Road">Mission Road</option>
+
+<option value="Velanja">Velanja</option>
+
+</select>
+
+<select id="filterCourse" onchange="render()">
+
+<option value="All">All Courses</option>
+
+<option value="Spoken English">Spoken English</option>
+
+<option value="IELTS">IELTS</option>
+
+<option value="CCC">CCC</option>
+
+<option value="Tally Prime">Tally Prime</option>
+
+<option value="MS Office">MS Office</option>
+
+<option value="Computer Basic">Computer Basic</option>
+
+<option value="Web Design">Web Design</option>
+
+<option value="Graphic Design">Graphic Design</option>
+
+</select>
 
 <button class="present-btn" onclick="markAllPresent()">
 ✅ Full Present
@@ -321,12 +370,8 @@ td:nth-child(5){
 🗑 Clear Today
 </button>
 
-<button class="dark-btn" onclick="toggleDarkMode()">
-🌙 Dark Mode
-</button>
-
 <button class="export-btn" onclick="exportBackup()">
-⬇ Export Backup
+⬇ Export
 </button>
 
 <input
@@ -334,17 +379,19 @@ type="file"
 id="importFile"
 accept=".json"
 style="display:none"
-onchange="importOldBackup(event)"
+onchange="importBackup(event)"
 >
 
 <button
-class="export-btn"
+class="add-btn"
 onclick="document.getElementById('importFile').click()"
 >
-⬆ Import Backup
+⬆ Import
 </button>
 
 </div>
+
+<!-- STATS -->
 
 <div class="stats">
 
@@ -370,6 +417,8 @@ onclick="document.getElementById('importFile').click()"
 
 </div>
 
+<!-- TABLE -->
+
 <div class="table-wrap">
 <table id="attendanceTable"></table>
 </div>
@@ -390,7 +439,7 @@ const month = today.getMonth();
 
 const year = today.getFullYear();
 
-const dayToday = today.getDate();
+const todayDay = today.getDate();
 
 const days =
 new Date(year, month + 1, 0).getDate();
@@ -415,29 +464,37 @@ function addStudent(){
 const name =
 document.getElementById("studentName").value.trim();
 
-const mobile =
-document.getElementById("studentMobile").value.trim();
+const studentClass =
+document.getElementById("studentClass").value;
 
-const cls =
-document.getElementById("studentClass").value.trim();
+const course =
+document.getElementById("studentCourse").value;
 
 const fees =
 document.getElementById("studentFees").value;
 
-if(!name || !mobile || !cls || !fees){
+if(!name || !studentClass || !course || !fees){
 
 alert("Fill all fields");
 
 return;
+
 }
 
 students.push({
-name,
-mobile,
-cls,
+
+name:name,
+
+studentClass:studentClass,
+
+course:course,
+
 fees:Number(fees),
+
 feesPaid:false,
+
 attendance:{}
+
 });
 
 save();
@@ -445,9 +502,10 @@ save();
 render();
 
 document.getElementById("studentName").value="";
-document.getElementById("studentMobile").value="";
 document.getElementById("studentClass").value="";
+document.getElementById("studentCourse").value="";
 document.getElementById("studentFees").value="";
+
 }
 
 function toggleAttendance(i,d){
@@ -457,6 +515,7 @@ let key = attendanceKey();
 if(!students[i].attendance[key]){
 
 students[i].attendance[key] = {};
+
 }
 
 let value =
@@ -472,6 +531,7 @@ value === "P"
 save();
 
 render();
+
 }
 
 function toggleFees(i){
@@ -482,6 +542,7 @@ students[i].feesPaid =
 save();
 
 render();
+
 }
 
 function editStudent(i){
@@ -489,35 +550,41 @@ function editStudent(i){
 let newName =
 prompt("Edit Name", students[i].name);
 
-let newMobile =
-prompt("Edit Mobile", students[i].mobile);
+let newBranch =
+prompt("Edit Branch", students[i].studentClass);
 
-let newClass =
-prompt("Edit Class", students[i].cls);
+let newCourse =
+prompt("Edit Course", students[i].course);
 
 let newFees =
 prompt("Edit Fees", students[i].fees);
 
 if(newName) students[i].name = newName;
-if(newMobile) students[i].mobile = newMobile;
-if(newClass) students[i].cls = newClass;
+
+if(newBranch) students[i].studentClass = newBranch;
+
+if(newCourse) students[i].course = newCourse;
+
 if(newFees) students[i].fees = Number(newFees);
 
 save();
 
 render();
+
 }
 
 function deleteStudent(i){
 
-if(confirm("Delete this student?")){
+if(confirm("Delete Student?")){
 
 students.splice(i,1);
 
 save();
 
 render();
+
 }
+
 }
 
 function render(){
@@ -525,33 +592,58 @@ function render(){
 let key = attendanceKey();
 
 let totalFees = 0;
+
 let paidFees = 0;
 
+const filterClass =
+document.getElementById("filterClass").value;
+
+const filterCourse =
+document.getElementById("filterCourse").value;
+
+let filteredStudents =
+students.filter(student => {
+
+let classMatch =
+filterClass === "All"
+|| student.studentClass === filterClass;
+
+let courseMatch =
+filterCourse === "All"
+|| student.course === filterCourse;
+
+return classMatch && courseMatch;
+
+});
+
 document.getElementById("totalStudents").innerText =
-students.length;
+filteredStudents.length;
 
 let html = `
 <tr>
+
 <th>#</th>
-<th>Mobile</th>
+
 <th>Name</th>
-<th>Class</th>
+
+<th>Branch</th>
+
+<th>Course</th>
+
 <th>Fees</th>
 `;
 
 for(let d=1; d<=days; d++){
 
-let date =
-new Date(year,month,d);
-
 let sunday =
-date.getDay()===0;
+new Date(year,month,d).getDay()===0;
 
 html += `
 <th class="${sunday ? 'sunday' : ''}">
 ${d}
 </th>
 `;
+
 }
 
 html += `
@@ -563,9 +655,13 @@ html += `
 </tr>
 `;
 
-students.forEach((s,i)=>{
+filteredStudents.forEach((s,index)=>{
+
+let originalIndex =
+students.indexOf(s);
 
 let p=0;
+
 let a=0;
 
 totalFees += s.fees;
@@ -573,26 +669,31 @@ totalFees += s.fees;
 if(s.feesPaid){
 
 paidFees += s.fees;
+
 }
 
 html += `
 <tr>
 
-<td>${i+1}</td>
-
-<td>${s.mobile}</td>
+<td>${index+1}</td>
 
 <td>${s.name}</td>
 
-<td>${s.cls}</td>
+<td>${s.studentClass}</td>
+
+<td>${s.course}</td>
 
 <td
 class="${s.feesPaid ? 'paid' : 'unpaid'}"
-onclick="toggleFees(${i})"
+onclick="toggleFees(${originalIndex})"
 >
+
 ₹${s.fees}
+
 <br>
+
 ${s.feesPaid ? 'Paid' : 'Pending'}
+
 </td>
 `;
 
@@ -612,20 +713,20 @@ value==="P"
 ? "absent"
 : "empty";
 
-let date =
-new Date(year,month,d);
-
 let sunday =
-date.getDay()===0;
+new Date(year,month,d).getDay()===0;
 
 html += `
 <td
 class="${sunday ? 'sunday' : cls}"
-onclick="toggleAttendance(${i},${d})"
+onclick="toggleAttendance(${originalIndex},${d})"
 >
+
 ${value || "-"}
+
 </td>
 `;
+
 }
 
 let percent =
@@ -633,41 +734,37 @@ let percent =
 
 html += `
 <td>${p}</td>
+
 <td>${a}</td>
+
 <td>${percent}%</td>
 
 <td>
+
 <button
 class="edit-btn"
-onclick="editStudent(${i})"
+onclick="editStudent(${originalIndex})"
 >
 ✏️
 </button>
+
 </td>
 
 <td>
+
 <button
 class="delete-btn"
-onclick="deleteStudent(${i})"
+onclick="deleteStudent(${originalIndex})"
 >
 ❌
 </button>
+
 </td>
 
 </tr>
 `;
+
 });
-
-if(students.length===0){
-
-html += `
-<tr>
-<td colspan="${days+10}">
-No Students Added
-</td>
-</tr>
-`;
-}
 
 table.innerHTML = html;
 
@@ -679,44 +776,51 @@ document.getElementById("paidFees").innerText =
 
 document.getElementById("pendingFees").innerText =
 "₹" + (totalFees - paidFees);
+
 }
 
 function markAllPresent(){
 
 let key = attendanceKey();
 
-students.forEach(s=>{
+students.forEach(student => {
 
-if(!s.attendance[key]){
+if(!student.attendance[key]){
 
-s.attendance[key] = {};
+student.attendance[key] = {};
+
 }
 
-s.attendance[key][dayToday] = "P";
+student.attendance[key][todayDay] = "P";
+
 });
 
 save();
 
 render();
+
 }
 
 function markAllAbsent(){
 
 let key = attendanceKey();
 
-students.forEach(s=>{
+students.forEach(student => {
 
-if(!s.attendance[key]){
+if(!student.attendance[key]){
 
-s.attendance[key] = {};
+student.attendance[key] = {};
+
 }
 
-s.attendance[key][dayToday] = "A";
+student.attendance[key][todayDay] = "A";
+
 });
 
 save();
 
 render();
+
 }
 
 function clearTodayAttendance(){
@@ -725,30 +829,36 @@ if(confirm("Clear today's attendance?")){
 
 let key = attendanceKey();
 
-students.forEach(student=>{
+students.forEach(student => {
 
 if(student.attendance[key]){
 
-delete student.attendance[key][dayToday];
+delete student.attendance[key][todayDay];
+
 }
+
 });
 
 save();
 
 render();
+
 }
+
 }
+
+/* EXPORT BACKUP */
 
 function exportBackup(){
 
-const data = {
+const backupData = {
 
 students: students
 
 };
 
 const blob = new Blob(
-[JSON.stringify(data,null,2)],
+[JSON.stringify(backupData,null,2)],
 {type:"application/json"}
 );
 
@@ -762,9 +872,12 @@ link.download =
 "attendance_backup.json";
 
 link.click();
+
 }
 
-function importOldBackup(event){
+/* IMPORT BACKUP */
+
+function importBackup(event){
 
 const file = event.target.files[0];
 
@@ -779,66 +892,9 @@ try{
 const data =
 JSON.parse(e.target.result);
 
-let importedStudents = [];
+if(data.students){
 
-if(Array.isArray(data)){
-
-importedStudents = data.map(student=>({
-
-name:
-student.name || "",
-
-mobile:
-student.mobile || student.roll || "",
-
-cls:
-student.cls || student.className || "",
-
-fees:
-student.fees || 0,
-
-feesPaid:
-student.feesPaid || false,
-
-attendance:
-student.attendance || {}
-
-}));
-
-}
-else if(data.students){
-
-importedStudents =
-data.students.map(student=>({
-
-name:
-student.name || "",
-
-mobile:
-student.mobile || student.roll || "",
-
-cls:
-student.cls || student.className || "",
-
-fees:
-student.fees || 0,
-
-feesPaid:
-student.feesPaid || false,
-
-attendance:
-student.attendance || {}
-
-}));
-
-}
-else{
-
-alert("Invalid backup file");
-return;
-}
-
-students = importedStudents;
+students = data.students;
 
 save();
 
@@ -846,39 +902,22 @@ render();
 
 alert("Backup Imported Successfully");
 
-}
-catch(error){
+}else{
 
-alert("Error importing backup");
+alert("Invalid Backup File");
+
+}
+
+}catch(error){
+
+alert("Import Failed");
+
 }
 
 };
 
 reader.readAsText(file);
-}
 
-function toggleDarkMode(){
-
-document.body.classList.toggle(
-"dark-mode"
-);
-
-localStorage.setItem(
-"darkMode",
-document.body.classList.contains(
-"dark-mode"
-)
-);
-}
-
-if(
-localStorage.getItem("darkMode")
-==="true"
-){
-
-document.body.classList.add(
-"dark-mode"
-);
 }
 
 render();
