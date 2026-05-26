@@ -325,8 +325,23 @@ td:nth-child(5){
 🌙 Dark Mode
 </button>
 
-<button class="export-btn" onclick="exportCSV()">
-📄 Export CSV
+<button class="export-btn" onclick="exportBackup()">
+⬇ Export Backup
+</button>
+
+<input
+type="file"
+id="importFile"
+accept=".json"
+style="display:none"
+onchange="importOldBackup(event)"
+>
+
+<button
+class="export-btn"
+onclick="document.getElementById('importFile').click()"
+>
+⬆ Import Backup
 </button>
 
 </div>
@@ -376,13 +391,6 @@ const month = today.getMonth();
 const year = today.getFullYear();
 
 const dayToday = today.getDate();
-
-const monthNames = [
-"January","February","March",
-"April","May","June",
-"July","August","September",
-"October","November","December"
-];
 
 const days =
 new Date(year, month + 1, 0).getDate();
@@ -731,83 +739,122 @@ render();
 }
 }
 
-function exportCSV(){
+function exportBackup(){
 
-let key = attendanceKey();
+const data = {
 
-let csv = [];
+students: students
 
-let header = [
-"No",
-"Mobile",
-"Name",
-"Class",
-"Fees",
-"Fees Status"
-];
+};
 
-for(let d=1; d<=days; d++){
-
-header.push(`Day ${d}`);
-}
-
-header.push(
-"Present",
-"Absent",
-"Percentage"
+const blob = new Blob(
+[JSON.stringify(data,null,2)],
+{type:"application/json"}
 );
 
-csv.push(header.join(","));
-
-students.forEach((s,i)=>{
-
-let p=0;
-let a=0;
-
-let row = [
-i+1,
-s.mobile,
-s.name,
-s.cls,
-s.fees,
-s.feesPaid ? "Paid" : "Pending"
-];
-
-for(let d=1; d<=days; d++){
-
-let value =
-s.attendance[key]?.[d] || "";
-
-if(value==="P") p++;
-
-if(value==="A") a++;
-
-row.push(value || "-");
-}
-
-let percent =
-((p/days)*100).toFixed(0);
-
-row.push(p,a,percent+"%");
-
-csv.push(row.join(","));
-});
-
-let blob = new Blob(
-[csv.join("\n")],
-{type:"text/csv"}
-);
-
-let link =
+const link =
 document.createElement("a");
 
 link.href =
 URL.createObjectURL(blob);
 
 link.download =
-"attendance_fees.csv";
+"attendance_backup.json";
 
 link.click();
+}
+
+function importOldBackup(event){
+
+const file = event.target.files[0];
+
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+try{
+
+const data =
+JSON.parse(e.target.result);
+
+let importedStudents = [];
+
+if(Array.isArray(data)){
+
+importedStudents = data.map(student=>({
+
+name:
+student.name || "",
+
+mobile:
+student.mobile || student.roll || "",
+
+cls:
+student.cls || student.className || "",
+
+fees:
+student.fees || 0,
+
+feesPaid:
+student.feesPaid || false,
+
+attendance:
+student.attendance || {}
+
+}));
+
+}
+else if(data.students){
+
+importedStudents =
+data.students.map(student=>({
+
+name:
+student.name || "",
+
+mobile:
+student.mobile || student.roll || "",
+
+cls:
+student.cls || student.className || "",
+
+fees:
+student.fees || 0,
+
+feesPaid:
+student.feesPaid || false,
+
+attendance:
+student.attendance || {}
+
+}));
+
+}
+else{
+
+alert("Invalid backup file");
+return;
+}
+
+students = importedStudents;
+
+save();
+
+render();
+
+alert("Backup Imported Successfully");
+
+}
+catch(error){
+
+alert("Error importing backup");
+}
+
+};
+
+reader.readAsText(file);
 }
 
 function toggleDarkMode(){
